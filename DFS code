@@ -1,0 +1,27 @@
+#include<bits/stdc++.h>
+using namespace std;
+ 
+int n, x, ans = 0, depth[2005];
+vector<int> adj[2005], st;
+ 
+void DFS(int u, int d=1){
+  depth[u] = d;
+  for(int i: adj[u]) DFS(i, d+1);
+}
+ 
+int main()
+{
+  scanf("%d", &n);
+  for(int i=0; i<n; i++){
+    scanf("%d", &x);
+    if(x == -1){
+      st.push_back(i+1);
+      continue;
+    }
+    adj[x].push_back(i+1);
+  }
+  for(int i: st) DFS(i);
+  for(int i=1; i<=n; i++) ans = max(ans, depth[i]);
+  printf("%d", ans);
+  return 0;
+}
