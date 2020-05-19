@@ -1,0 +1,43 @@
+#include <bits/stdc++.h>
+using namespace std ;
+const int N = 2000 + 10 ;
+vector < int > adj [ N ] ;
+int dis [ N ] ;
+int n ;
+int BFS ( int v ){
+    queue < int > q ;
+    q.push( v ) ;
+    dis [ v ] = 0 ;
+    int end = 0 ;
+    while ( q.size() ) {
+        int p = q.front() ;
+        q.pop() ;
+        for ( auto i : adj [ p ] )
+            if ( dis [ i ] == -1 ){
+                dis [ i ] = dis [ p ] + 1 ;
+                end = dis [ i ] ;
+                q.push( i ) ;
+            }
+    }
+    return end + 1 ;
+}
+int main(){
+    scanf( "%d" , &n ) ;
+    int v ;
+    vector < int > parents ;
+    for ( int i = 1 ; i <= n ; ++i ){
+        scanf ( "%d" , &v ) ;
+        if ( v != -1 )
+            adj [ v ].push_back( i ) ;
+        else
+            parents.push_back( i ) ;
+    }
+    int maxAns = 0 ;
+    memset ( dis , -1 , sizeof( dis ) ) ;
+    for ( auto i : parents )
+        maxAns = max ( BFS ( i ) , maxAns ) ;
+    
+    printf ( "%d" , maxAns ) ;
+    
+    return 0 ;
+}
