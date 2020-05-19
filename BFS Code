@@ -12,7 +12,7 @@ int BFS ( int v ){
     while ( q.size() ) {
         int p = q.front() ;
         q.pop() ;
-        for ( auto i : adj [ p ] )
+        for ( auto& i : adj [ p ] )
             if ( dis [ i ] == -1 ){
                 dis [ i ] = dis [ p ] + 1 ;
                 end = dis [ i ] ;
@@ -34,7 +34,7 @@ int main(){
     }
     int maxAns = 0 ;
     memset ( dis , -1 , sizeof( dis ) ) ;
-    for ( auto i : parents )
+    for ( auto& i : parents )
         maxAns = max ( BFS ( i ) , maxAns ) ;
     
     printf ( "%d" , maxAns ) ;
